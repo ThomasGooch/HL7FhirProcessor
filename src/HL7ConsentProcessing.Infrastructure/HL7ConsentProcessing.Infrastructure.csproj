@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HL7ConsentProcessing.Application\HL7ConsentProcessing.Application.csproj" />
+    <ProjectReference Include="..\HL7ConsentProcessing.Domain\HL7ConsentProcessing.Domain.csproj" />
+  </ItemGroup>
+
+</Project>
