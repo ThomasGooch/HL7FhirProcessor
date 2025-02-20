@@ -1,5 +1,5 @@
-﻿using HL7ConsentProcessing.Application.Services;
-using HL7ConsentProcessing.Domain.Entities;
+﻿using Hl7.Fhir.Model;
+using HL7ConsentProcessing.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HL7ConsentProcessing.WebApi.Controllers
@@ -16,11 +16,18 @@ namespace HL7ConsentProcessing.WebApi.Controllers
         }
 
         [HttpPost]
-        public IActionResult CreateConsent([FromBody] FhirConsent fhirConsent)
+        public async Task<IActionResult> CreateConsentAsync([FromBody] Bundle bundle)
         {
-            var consent = _service.CreateConsent(fhirConsent);
-            var serializedConsent = _service.SerializeConsent(consent);
-            return Ok(serializedConsent);
+            try
+            {
+                var fhirConsent = await _service.CreateConsentFromBundle(bundle);
+                var serializedConsent = _service.SerializeConsent(fhirConsent);
+                return Ok(serializedConsent);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
